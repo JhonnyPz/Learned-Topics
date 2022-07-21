@@ -1,27 +1,22 @@
-const user = {
-  name: "Art",
-  lastname: "123",
-  age: 20,
-  nickname: "Genexis",
-  hobby: ["run","code","eat"],
-  address: {
-    street: "123 stringify",
-    city: "Berlin",
-  },
-  married: false,
-  greet(){
-    return "Hello"
+let friendsElements = ""
+
+fetch('/user.json')
+ .then(response => response.json())
+ .then(data => {
+  document.getElementById("userlist").innerHTML = `<h1>${data.name} ${data.lastname}</h1>`
+  for (let i = 0; i < data.friends.length; i++){
+    friendsElements += `<li>${data.friends[i].name} - ${data.friends[i].nickname}</li>`
   }
-}
+  document.getElementById("friendslist").innerHTML = friendsElements
+ })
 
-const friends = [
-  {"name": "Yoan", "nickname": "Yoan123"},
-  {"name": "Jane", "nickname": "Jane123"},
-  {"name": "John", "nickname": "John123"},
-  {"name": "Mary", "nickname": "Mary123"},
-  {"name": "Nancy", "nickname": "Nancy123"},
-]
+let postsElements = ""
 
-user.friends = friends
-
-console.log(JSON.stringify(user)) 
+fetch('https://jsonplaceholder.typicode.com/posts')
+  .then(res => res.json())
+  .then(data => {
+    for (let i = 0; i < data.length; i++){
+      postsElements += `<li>${data[i].userId} - ${data[i].title}</li>`
+    }
+    document.getElementById("posts").innerHTML = postsElements
+  })
