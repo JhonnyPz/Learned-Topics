@@ -2,3 +2,5 @@
 Python
 
 JavaScript & Json
+
+SQLite3
